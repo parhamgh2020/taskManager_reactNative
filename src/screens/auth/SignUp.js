@@ -5,6 +5,7 @@ import {
   View,
   Linking,
   ScrollView,
+  Alert
 } from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../constants/colors';
@@ -20,11 +21,10 @@ import {
 const SignUp = () => {
   //
   const [agreed, setAgreed] = useState(false);
-  const [value, setValue] = useState({});
-  console.log('🚀 ~ SignUp ~ value:', value);
+  const [values, setValue] = useState({});
   //
   const onCheckboxPress = () => {
-    setAgreed(value => !value);
+    setAgreed(val => !val);
   };
   //
   const onLinkPress = url => {
@@ -36,6 +36,25 @@ const SignUp = () => {
       ...vals,
       [key]: value,
     }));
+  };
+  //
+  const onSubmit = () => {
+    if (!values.first_name || !values.last_name) {
+      Alert.alert('Please enter first name and last name');
+      return;
+    }
+    if (!values.password || !values.confirm_password) {
+      Alert.alert('Please enter password and confirm password');
+      return;
+    }
+    if (values.password !== values.confirm_password) {
+      Alert.alert('Passwords do not match');
+      return;
+    }
+    if (!agreed) {
+      Alert.alert('You should agree to the terms');
+      return;
+    }
   };
   //
   return (
@@ -87,8 +106,8 @@ const SignUp = () => {
             </Text>
           </Text>
         </View>
-        <Button style={styles.button} type={'blue'}>
-          Sign up
+        <Button style={styles.button} type={'blue'} onPress={onSubmit}>
+          Submit
         </Button>
       </ScrollView>
     </SafeAreaView>
