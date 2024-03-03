@@ -1,4 +1,11 @@
-import {StyleSheet, Text, SafeAreaView, View, Linking} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  View,
+  Linking,
+  ScrollView,
+} from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../constants/colors';
 import Title from '../../components/Title';
@@ -11,7 +18,11 @@ import {
 } from '../../constants/links';
 
 const SignUp = () => {
+  //
   const [agreed, setAgreed] = useState(false);
+  const [value, setValue] = useState({});
+  console.log('🚀 ~ SignUp ~ value:', value);
+  //
   const onCheckboxPress = () => {
     setAgreed(value => !value);
   };
@@ -20,39 +31,66 @@ const SignUp = () => {
     Linking.openURL(url);
   };
   //
+  const onChangeText = (value, key) => {
+    setValue(vals => ({
+      ...vals,
+      [key]: value,
+    }));
+  };
+  //
   return (
     <SafeAreaView style={styles.container}>
-      <Title>Sign up</Title>
-      <View style={styles.inputContainer}>
-        <Input placeholder="First Name"/>
-        <Input placeholder="Last Name" />
-        <Input placeholder="Email" keyboardType="email-address" />
-        <Input placeholder="Password" secureTextEntry />
-        <Input placeholder="Confirm Password" secureTextEntry />
-      </View>
-      <View style={styles.row}>
-        <Checkbox checked={agreed} onPress={onCheckboxPress} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Title>Sign up</Title>
+        <View style={styles.inputContainer}>
+          <Input
+            placeholder="First Name"
+            onChangeText={val => onChangeText(val, 'first_name')}
+          />
+          <Input
+            placeholder="Last Name"
+            onChangeText={val => onChangeText(val, 'last_name')}
+          />
+          <Input
+            placeholder="Email"
+            keyboardType="email-address"
+            onChangeText={val => onChangeText(val, 'email')}
+          />
+          <Input
+            placeholder="Password"
+            secureTextEntry
+            onChangeText={val => onChangeText(val, 'password')}
+          />
+          <Input
+            placeholder="Confirm Password"
+            secureTextEntry
+            onChangeText={val => onChangeText(val, 'confirm_password')}
+          />
+        </View>
+        <View style={styles.row}>
+          <Checkbox checked={agreed} onPress={onCheckboxPress} />
 
-        <Text style={styles.agreeText}>
-          I agree to
-          <Text
-            style={styles.link}
-            onPress={() => onLinkPress(TERMS_CONDITIONS_LINK)}>
-            {' '}
-            Terms and Conditions
-          </Text>{' '}
-          and
-          <Text
-            style={styles.link}
-            onPress={() => onLinkPress(PRIVACY_POLICY_LINK)}>
-            {' '}
-            Privacy Policy
+          <Text style={styles.agreeText}>
+            I agree to
+            <Text
+              style={styles.link}
+              onPress={() => onLinkPress(TERMS_CONDITIONS_LINK)}>
+              {' '}
+              Terms and Conditions
+            </Text>{' '}
+            and
+            <Text
+              style={styles.link}
+              onPress={() => onLinkPress(PRIVACY_POLICY_LINK)}>
+              {' '}
+              Privacy Policy
+            </Text>
           </Text>
-        </Text>
-      </View>
-      <Button style={styles.button} type={'blue'}>
-        Sign up
-      </Button>
+        </View>
+        <Button style={styles.button} type={'blue'}>
+          Sign up
+        </Button>
+      </ScrollView>
     </SafeAreaView>
   );
 };
