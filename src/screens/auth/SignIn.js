@@ -1,19 +1,33 @@
 import {StyleSheet, Text, SafeAreaView, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Title from '../../components/Title';
 
 const SignIn = () => {
+  const [values, setValues] = useState({});
+
+  const onChangeText = (val, key) => {
+    setValues(vals => ({
+      ...vals,
+      [key]: val,
+    }));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Title>Sign in</Title>
       <View style={styles.inputContainer}>
-        <Input placeholder="First Name" />
-        <Input placeholder="Last Name" />
-        <Input placeholder="Email" keyboardType="email-address" />
-        <Input placeholder="Password" secureTextEntry />
-        <Input placeholder="Confirm Password" secureTextEntry />
+        <Input
+          placeholder="Email"
+          keyboardType="email-address"
+          onChangeText={val => onChangeText(val, 'email')}
+        />
+        <Input
+          placeholder="Password"
+          secureTextEntry
+          onChangeText={val => onChangeText(val, 'password')}
+        />
       </View>
       <Button style={styles.button}>Sign in</Button>
     </SafeAreaView>
