@@ -1,10 +1,14 @@
-import {StyleSheet, Text, SafeAreaView, View} from 'react-native';
+import {StyleSheet, Text, SafeAreaView, View, Linking} from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../constants/colors';
 import Title from '../../components/Title';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
+import {
+  TERMS_CONDITIONS_LINK,
+  PRIVACY_POLICY_LINK,
+} from '../../constants/links';
 
 const SignUp = () => {
   const [agreed, setAgreed] = useState(false);
@@ -20,7 +24,7 @@ const SignUp = () => {
     <SafeAreaView style={styles.container}>
       <Title>Sign up</Title>
       <View style={styles.inputContainer}>
-        <Input placeholder="First Name" />
+        <Input placeholder="First Name"/>
         <Input placeholder="Last Name" />
         <Input placeholder="Email" keyboardType="email-address" />
         <Input placeholder="Password" secureTextEntry />
@@ -69,11 +73,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'center',
     marginBottom: 20,
+    justifyContent: 'center',
   },
   agreeText: {
     color: colors.grey,
     fontSize: 12,
     marginLeft: 8,
+    paddingVertical: 2,
   },
   link: {
     textDecorationLine: 'underline',
