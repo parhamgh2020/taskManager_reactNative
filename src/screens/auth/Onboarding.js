@@ -1,9 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import Button from '../../components/Button';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
-const Onboarding = () => {
+const Onboarding = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={{flex: 1}}>
@@ -19,8 +19,8 @@ const Onboarding = () => {
           Get organized by sorting out all your tasks and boost your
           productivity.
         </Text>
-        <Button onPress={() => navigation.navigate('Signin')}>Log in</Button>
-        <Button onPress={() => navigation.navigate('Signup')} type={'blue'}>
+        <Button onPress={() => navigation.navigate('SignIn')}>Log in</Button>
+        <Button onPress={() => navigation.navigate('SignUp')} type={'blue'}>
           Get started
         </Button>
       </View>
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: '10%',
     paddingTop: 0,
+    backgroundColor: colors.white,
   },
   title: {
     color: colors.black,
@@ -65,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Onboarding;
+export default React.memo(Onboarding);
