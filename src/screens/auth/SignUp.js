@@ -5,7 +5,7 @@ import {
   View,
   Linking,
   ScrollView,
-  Alert
+  Alert,
 } from 'react-native';
 import React, {useState} from 'react';
 import colors from '../../constants/colors';
@@ -17,8 +17,12 @@ import {
   TERMS_CONDITIONS_LINK,
   PRIVACY_POLICY_LINK,
 } from '../../constants/links';
+import {Context as AuthContext} from '../../context/AuthContext';
+import {useContext} from 'react';
 
 const SignUp = () => {
+  //
+  const {signUp} = useContext(AuthContext);
   //
   const [agreed, setAgreed] = useState(false);
   const [values, setValue] = useState({});
@@ -55,6 +59,7 @@ const SignUp = () => {
       Alert.alert('You should agree to the terms');
       return;
     }
+    signUp(values);
   };
   //
   return (
