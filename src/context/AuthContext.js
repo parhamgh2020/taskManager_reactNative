@@ -2,6 +2,7 @@ import createDataContext from './createDataContext';
 import httpRequest from '../http/httpRequest';
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -28,11 +29,13 @@ const signIn = dispatch => {
     };
     try {
       const res = await httpRequest.post('api/token/', data);
-      console.log('🚀 ~ signIn ~ res:', res.data.access);
       dispatch({type: 'sign_in', payload: res.data.access});
+      await AsyncStorage.setItem('token', res.data.access);
     } catch (err) {
+      console.log("🚀 ~ signIn ~ err:", err)
       Alert.alert('wrong username or password');
     }
+    // navigation.navigate('')
   };
 };
 
