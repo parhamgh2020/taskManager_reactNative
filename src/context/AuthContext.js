@@ -1,4 +1,7 @@
 import createDataContext from './createDataContext';
+import httpRequest from '../http/httpRequest';
+import {Alert} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -16,13 +19,34 @@ const authReducer = (state, action) => {
 };
 
 const signIn = dispatch => {
-  return async ({email, password}) => {};
+  const navigation = useNavigation();
+  return async props => {
+    console.log('🚀 ~ signIn ~ props:', props);
+    const data = {
+      username: props.username,
+      password: props.password,
+    };
+    try {
+      const res = await httpRequest.post('api/token/', data);
+      console.log('🚀 ~ signIn ~ res:', res.data.access);
+      dispatch({type: 'sign_in', payload: res.data.access});
+    } catch (err) {
+      Alert.alert('wrong username or password');
+    }
+  };
 };
 
 const signUp = dispatch => {
-  return params => {
-    console.log(JSON.stringify(params, null, 4));
-    console.log("🚀 ~ signUp ~ signUp:", signUp)
+  return async props => {
+    const data = {
+      username: props.username,
+      password: props.password,
+    };
+    try {
+      const res = await httpRequest.post('client/user/create', data);
+    } catch {
+      Alert.alert('something went wrong!!');
+    }
   };
 };
 

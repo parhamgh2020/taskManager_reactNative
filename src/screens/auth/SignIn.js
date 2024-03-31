@@ -1,11 +1,15 @@
-import {StyleSheet, Text, SafeAreaView, View} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, SafeAreaView, View} from 'react-native';
+import React, {useContext, useState} from 'react';
+//
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Title from '../../components/Title';
+//
+import {Context as AuthContext} from '../../context/AuthContext';
 
 const SignIn = () => {
   const [values, setValues] = useState({});
+  const {signIn} = useContext(AuthContext);
 
   const onChangeText = (val, key) => {
     setValues(vals => ({
@@ -14,14 +18,17 @@ const SignIn = () => {
     }));
   };
 
+  const onSubmit = () => {
+    signIn(values);
+  };
   return (
     <SafeAreaView style={styles.container}>
       <Title>Sign in</Title>
       <View style={styles.inputContainer}>
         <Input
-          placeholder="Email"
-          keyboardType="email-address"
-          onChangeText={val => onChangeText(val, 'email')}
+          placeholder="Username"
+          // keyboardType="email-address"
+          onChangeText={val => onChangeText(val, 'username')}
         />
         <Input
           placeholder="Password"
@@ -29,7 +36,7 @@ const SignIn = () => {
           onChangeText={val => onChangeText(val, 'password')}
         />
       </View>
-      <Button style={styles.button}>Sign in</Button>
+      <Button style={styles.button} onPress={onSubmit}>Sign in</Button>
     </SafeAreaView>
   );
 };

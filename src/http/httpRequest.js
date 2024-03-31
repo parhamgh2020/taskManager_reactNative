@@ -1,9 +1,8 @@
 import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-url = "https://fdbd-18-168-191-224.ngrok-free.app";
+url = "https://5edd-145-224-74-71.ngrok-free.app";
 
-const trackerAPI = axios.create({
+const httpRequest = axios.create({
   baseURL: url,
   timeout: 5000, // Increased timeout value
 });
@@ -21,4 +20,4 @@ const trackerAPI = axios.create({
 //   }
 // );
 
-export default trackerAPI;
+export default httpRequest;

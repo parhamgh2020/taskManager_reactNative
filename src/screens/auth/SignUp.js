@@ -68,6 +68,10 @@ const SignUp = () => {
         <Title>Sign up</Title>
         <View style={styles.inputContainer}>
           <Input
+            placeholder="Username"
+            onChangeText={val => onChangeText(val, 'username')}
+          />
+          <Input
             placeholder="First Name"
             onChangeText={val => onChangeText(val, 'first_name')}
           />
