@@ -19,8 +19,13 @@ const authReducer = (state, action) => {
   }
 };
 
+const signInLocally = dispatch => {
+  return props => {
+    dispatch({type: 'sign_in', payload: props});
+  };
+};
+
 const signIn = dispatch => {
-  const navigation = useNavigation();
   return async props => {
     console.log('🚀 ~ signIn ~ props:', props);
     const data = {
@@ -35,12 +40,10 @@ const signIn = dispatch => {
       console.log('🚀 ~ signIn ~ err:', err);
       Alert.alert('wrong username or password');
     }
-    // navigation.navigate('AddTask')
   };
 };
 
 const signUp = dispatch => {
-  const navigation = useNavigation();
   return async props => {
     const data = {
       username: props.username,
@@ -58,16 +61,13 @@ const signOut = dispatch => {
   return async props => {
     await AsyncStorage.removeItem('token');
     dispatch('sign_out');
-    // navigation.navigate('AddTask')
   };
 };
 
 const cleanUpError = dispatch => {};
 
-const tryLocalSignIn = dispatch => {};
-
 export const {Context, Provider} = createDataContext(
   authReducer,
-  {signIn, signOut, signUp, cleanUpError, tryLocalSignIn},
+  {signInLocally, signIn, signOut, signUp, cleanUpError},
   {token: null, errMessage: null},
 );

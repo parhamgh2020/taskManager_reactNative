@@ -22,22 +22,24 @@ const Stack = createNativeStackNavigator();
 
 const Routes = () => {
   console.log('🚀 ~ Routes ~ Routes');
-  const [isSingedIn, setSignedIn] = useState(false);
   const [initializing, setInitializing] = useState(true);
-
-  const _retrieveData = async () => {
-    try {
-      const token = await AsyncStorage.getItem('token');
-      if (token) {
-        setSignedIn(true);
-      }
-    } catch (error) {
-      console.log('🚀 ~ _retrieveData= ~ error:', error);
-    }
-  };
+  const {
+    signInLocally,
+    state: {token},
+  } = useContext(AuthContext);
 
   useEffect(() => {
     console.log('🚀 ~ useEffect ~ useEffect');
+    const _retrieveData = async () => {
+      try {
+        const accessToken = await AsyncStorage.getItem('token');
+        if (accessToken) {
+          signInLocally(accessToken);
+        }
+      } catch (error) {
+        console.log('🚀 ~ _retrieveData= ~ error:', error);
+      }
+    };
     _retrieveData();
     if (initializing) {
       setInitializing(false);
@@ -75,7 +77,7 @@ const Routes = () => {
 
   return (
     <>
-      {isSingedIn ? (
+      {token ? (
         <Drawer.Navigator
           drawerContent={props => <CustomDrawerContent {...props} />}>
           <Drawer.Screen name="AddTask" component={AddTask} />
