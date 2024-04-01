@@ -73,22 +73,22 @@ const Routes = () => {
     );
   };
 
-  if (!isSingedIn) {
-    return (
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Onboarding" component={Onboarding} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-      </Stack.Navigator>
-    );
-  }
-
   return (
-    <Drawer.Navigator
-      drawerContent={props => <CustomDrawerContent {...props} />}>
-      <Drawer.Screen name="AddTask" component={AddTask} />
-      <Drawer.Screen name="Tabs" component={Tabs} />
-    </Drawer.Navigator>
+    <>
+      {isSingedIn ? (
+        <Drawer.Navigator
+          drawerContent={props => <CustomDrawerContent {...props} />}>
+          <Drawer.Screen name="AddTask" component={AddTask} />
+          <Drawer.Screen name="Tabs" component={Tabs} />
+        </Drawer.Navigator>
+      ) : (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Onboarding" component={Onboarding} />
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+        </Stack.Navigator>
+      )}
+    </>
   );
 };
 

@@ -35,7 +35,7 @@ const signIn = dispatch => {
       console.log("🚀 ~ signIn ~ err:", err)
       Alert.alert('wrong username or password');
     }
-    // navigation.navigate('')
+    // navigation.navigate('AddTask')
   };
 };
 
