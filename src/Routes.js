@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import React, {useState, useEffect, useContext} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {DrawerContent, createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -14,6 +14,7 @@ import AddTask from './screens/app/AddTask';
 import Tasks from './screens/app/Tasks';
 //
 import {Context as AuthContext} from './context/AuthContext';
+import CustomDrawerContent from './components/DrawerComponents';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -83,7 +84,8 @@ const Routes = () => {
   }
 
   return (
-    <Drawer.Navigator screenOptions={{headerShown: true}}>
+    <Drawer.Navigator
+      drawerContent={props => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="AddTask" component={AddTask} />
       <Drawer.Screen name="Tabs" component={Tabs} />
     </Drawer.Navigator>

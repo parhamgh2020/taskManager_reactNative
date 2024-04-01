@@ -7,7 +7,7 @@ const AddTask = () => {
   return (
     <View>
       <Text>AddTask</Text>
-      <FontAwesome5 name={'ad'} size={50} />
+      {/* <FontAwesome5 name={'ad'} size={50} /> */}
     </View>
   );
 };
