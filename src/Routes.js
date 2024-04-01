@@ -68,6 +68,7 @@ const Routes = () => {
           },
           tabBarActiveTintColor: 'black',
           tabBarInactiveTintColor: 'gray',
+          headerShown: false,
         })}>
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Tasks" component={Tasks} />
@@ -79,6 +80,7 @@ const Routes = () => {
     <>
       {token ? (
         <Drawer.Navigator
+          screenOptions={{headerShown: false}}
           drawerContent={props => <CustomDrawerContent {...props} />}>
           <Drawer.Screen name="AddTask" component={AddTask} />
           <Drawer.Screen name="Tabs" component={Tabs} />

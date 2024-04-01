@@ -1,13 +1,12 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Header from '../../components/Header';
 
 const AddTask = () => {
-
   return (
     <View>
-      <Text>AddTask</Text>
-      {/* <FontAwesome5 name={'ad'} size={50} /> */}
+      <Header title={'add tasks'} />
     </View>
   );
 };

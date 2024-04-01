@@ -1,6 +1,8 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+//
 import colors from '../constants/colors';
 
 const Header = ({title}) => {
@@ -13,7 +15,7 @@ const Header = ({title}) => {
   return (
     <View style={styles.container}>
       <Pressable onPress={openDrawer} hitSlop={8}>
-        <Image style={styles.icon} source={require('../../assets/menu.png')} />
+        <Ionicons name={'menu'} size={25} color={'black'} />
       </Pressable>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.icon} />

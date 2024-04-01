@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import {StyleSheet, Text, View} from 'react-native';
+import React from 'react';
+import Header from '../../components/Header';
 
 const Tasks = () => {
   return (
     <View>
-      <Text>Tasks</Text>
+      <Header title={'Tasks'} />
     </View>
-  )
-}
+  );
+};
 
-export default Tasks
+export default Tasks;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
