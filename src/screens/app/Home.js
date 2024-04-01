@@ -1,12 +1,18 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
 import React from 'react';
 import Header from '../../components/Header';
+import PlusIcon from '../../components/PlusIcon';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const Home = () => {
   return (
-    <View>
+    <SafeAreaView style={{flex:1}}>
       <Header title={'Home'} />
-    </View>
+      <ScrollView>
+        <Text>Home</Text>
+      </ScrollView>
+      <PlusIcon />
+    </SafeAreaView>
   );
 };
 

@@ -1,12 +1,14 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, SafeAreaView} from 'react-native';
 import React from 'react';
 import Header from '../../components/Header';
+import PlusIcon from '../../components/PlusIcon';
 
 const Tasks = () => {
   return (
-    <View>
+    <SafeAreaView style={{flex: 1}}>
       <Header title={'Tasks'} />
-    </View>
+      <PlusIcon />
+    </SafeAreaView>
   );
 };
 

@@ -5,11 +5,11 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 //
 import colors from '../constants/colors';
 
-const Header = ({title}) => {
+const PlusIcon = ({title}) => {
   const navigation = useNavigation();
 
-  const openDrawer = () => {
-    navigation.openDrawer();
+  const onPress = () => {
+    navigation.navigate('AddTask');
   };
 
   return (
@@ -19,7 +19,7 @@ const Header = ({title}) => {
   );
 };
 
-export default React.memo(Header);
+export default React.memo(PlusIcon);
 
 const styles = StyleSheet.create({
   container: {

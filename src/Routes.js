@@ -82,8 +82,8 @@ const Routes = () => {
         <Drawer.Navigator
           screenOptions={{headerShown: false}}
           drawerContent={props => <CustomDrawerContent {...props} />}>
-          <Drawer.Screen name="AddTask" component={AddTask} />
           <Drawer.Screen name="Tabs" component={Tabs} />
+          <Drawer.Screen name="AddTask" component={AddTask} />
         </Drawer.Navigator>
       ) : (
         <Stack.Navigator screenOptions={{headerShown: false}}>
