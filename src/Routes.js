@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 //
 import SignIn from './screens/auth/SignIn';
 import SignUp from './screens/auth/SignUp';
@@ -47,8 +48,24 @@ const Routes = () => {
   }
 
   const Tabs = () => {
+    const getTabBarIcon = (route, focused) => {
+      if (route.name === 'Home') {
+        return focused ? 'home' : 'home-outline';
+      } else if (route.name === 'Tasks') {
+        return focused ? 'list' : 'list-outline';
+      }
+    };
+
     return (
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={({route}) => ({
+          tabBarIcon: ({focused, color, size}) => {
+            const iconName = getTabBarIcon(route, focused);
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'gray',
+        })}>
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Tasks" component={Tasks} />
       </Tab.Navigator>
