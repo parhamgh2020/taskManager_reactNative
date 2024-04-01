@@ -42,7 +42,7 @@ const Routes = () => {
     if (initializing) {
       setInitializing(false);
     }
-  });
+  }, []);
 
   if (initializing) {
     return null;
@@ -92,6 +92,6 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+export default React.memo(Routes);
 
 const styles = StyleSheet.create({});

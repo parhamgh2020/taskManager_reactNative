@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import colors from '../constants/colors';
 import {PRIVACY_POLICY_LINK, TERMS_CONDITIONS_LINK} from '../constants/links';
 import {
@@ -6,8 +6,10 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import {Linking, StyleSheet, Text, View} from 'react-native';
+import {Context as AuthContext} from '../context/AuthContext';
 
 const CustomDrawerContent = props => {
+  const {signOut} = useContext(AuthContext);
   const {navigation} = props;
   return (
     <DrawerContentScrollView>
@@ -36,7 +38,9 @@ const CustomDrawerContent = props => {
         terms
       </Text>
       <View style={styles.separator} />
-      <Text style={[styles.link, styles.logout]}>logout</Text>
+      <Text style={[styles.link, styles.logout]} onPress={signOut}>
+        logout
+      </Text>
     </DrawerContentScrollView>
   );
 };

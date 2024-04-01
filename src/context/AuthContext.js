@@ -32,7 +32,7 @@ const signIn = dispatch => {
       dispatch({type: 'sign_in', payload: res.data.access});
       await AsyncStorage.setItem('token', res.data.access);
     } catch (err) {
-      console.log("🚀 ~ signIn ~ err:", err)
+      console.log('🚀 ~ signIn ~ err:', err);
       Alert.alert('wrong username or password');
     }
     // navigation.navigate('AddTask')
@@ -40,6 +40,7 @@ const signIn = dispatch => {
 };
 
 const signUp = dispatch => {
+  const navigation = useNavigation();
   return async props => {
     const data = {
       username: props.username,
@@ -53,7 +54,13 @@ const signUp = dispatch => {
   };
 };
 
-const signOut = dispatch => {};
+const signOut = dispatch => {
+  return async props => {
+    await AsyncStorage.removeItem('token');
+    dispatch('sign_out');
+    // navigation.navigate('AddTask')
+  };
+};
 
 const cleanUpError = dispatch => {};
 
