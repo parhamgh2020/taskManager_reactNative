@@ -59,8 +59,9 @@ const signUp = dispatch => {
 
 const signOut = dispatch => {
   return async props => {
+    console.log('🚀 ~ signOut ~ signOut:');
     await AsyncStorage.removeItem('token');
-    dispatch('sign_out');
+    dispatch({type: 'sign_out'});
   };
 };
 
