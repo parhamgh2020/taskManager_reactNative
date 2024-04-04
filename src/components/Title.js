@@ -2,8 +2,12 @@ import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import colors from '../constants/colors';
 
-const Title = ({children}) => {
-  return <Text style={styles.title}>{children}</Text>;
+const Title = ({children, type}) => {
+  return (
+    <Text style={[styles.title, type === 'thin' ? styles.thin : {}]}>
+      {children}
+    </Text>
+  );
 };
 
 export default React.memo(Title);
@@ -14,5 +18,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     paddingVertical: 24,
+  },
+  thin: {
+    fontSize: 24,
+    fontWeight: '300',
+    color: colors.purple,
+    paddingHorizontal: 24,
   },
 });
