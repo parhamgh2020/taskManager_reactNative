@@ -2,10 +2,10 @@ import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import colors from '../constants/colors';
 
-const Button = ({onPress, type, children}) => {
+const Button = ({onPress, type, children, style}) => {
   return (
     <TouchableOpacity
-      style={[styles.container, type === 'blue' ? styles.blueBg : {}]}
+      style={[styles.container, type === 'blue' ? styles.blueBg : {}, style]}
       onPress={onPress}>
       <Text style={styles.text}>{children}</Text>
     </TouchableOpacity>
@@ -14,7 +14,7 @@ const Button = ({onPress, type, children}) => {
 
 export default React.memo(Button);
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.purple,
     flexDirection: 'row',

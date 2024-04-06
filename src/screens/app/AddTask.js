@@ -1,4 +1,11 @@
-import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useState} from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation} from '@react-navigation/native';
@@ -8,14 +15,29 @@ import colors from '../../constants/colors';
 import Categories from '../../components/Categories';
 import {categories} from '../../constants/categories';
 import DateInput from '../../components/DateInput';
+import Button from '../../components/Button';
+import moment from 'moment';
 
 const AddTask = () => {
+  const [taskValue, setTaskValue] = useState();
   const [category, setCategory] = useState();
   const [deadline, setDeadline] = useState(new Date());
 
   const navigation = useNavigation();
   const onPressBack = () => {
     navigation.goBack();
+  };
+
+  const onPressButton = () => {
+    if (!taskValue) {
+      Alert.alert('Please enter the task title !!');
+      return;
+    }
+    const today = moment(new Date()).format('YYYY-MM-DD');
+    const deadlineDate = moment(deadline).format('YYYY-MM-DD');
+    if (moment(deadlineDate).isBefore(today)) {
+      Alert.alert('Please enter future date !!');
+    }
   };
 
   return (
@@ -25,7 +47,12 @@ const AddTask = () => {
       </Pressable>
       <Title type={'thin'}>Add new task</Title>
       <Text style={styles.label}>describe the task</Text>
-      <Input outlined placeholder={'type here...'} />
+      <Input
+        outlined
+        value={taskValue}
+        onChangeText={setTaskValue}
+        placeholder={'type here...'}
+      />
       <Text style={styles.label}>type</Text>
       <Categories
         categories={categories}
@@ -34,6 +61,9 @@ const AddTask = () => {
       />
       <Text style={styles.label}>Deadline</Text>
       <DateInput value={deadline} onChange={setDeadline} />
+      <Button style={styles.button} onPress={onPressButton}>
+        Add the task
+      </Button>
     </SafeAreaView>
   );
 };
@@ -54,6 +84,6 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   button: {
-    margin: 24,
+    marginTop: 24,
   },
 });
