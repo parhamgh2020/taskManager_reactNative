@@ -4,8 +4,12 @@ import {ScrollView} from 'react-native-gesture-handler';
 import Header from '../../components/Header';
 import PlusIcon from '../../components/PlusIcon';
 import Title from '../../components/Title';
+import {useSelector, useDispatch} from 'react-redux';
 
 const Home = () => {
+  const user = useSelector(state => state.user.data);
+  console.log("🚀 ~ Home ~ user:", user)
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header title={'Home'} />

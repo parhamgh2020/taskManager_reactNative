@@ -5,6 +5,7 @@ import {DrawerContent, createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {useDispatch} from 'react-redux';
 //
 import SignIn from './screens/auth/SignIn';
 import SignUp from './screens/auth/SignUp';
@@ -15,12 +16,15 @@ import Tasks from './screens/app/Tasks';
 //
 import {Context as AuthContext} from './context/AuthContext';
 import CustomDrawerContent from './components/DrawerComponents';
+import {setUser} from './redux/user';
 
 const Drawer = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const Routes = () => {
+  const dispatch = useDispatch();
+
   console.log('🚀 ~ Routes ~ Routes');
   const [initializing, setInitializing] = useState(true);
   const {
@@ -35,6 +39,7 @@ const Routes = () => {
         const accessToken = await AsyncStorage.getItem('token');
         if (accessToken) {
           signInLocally(accessToken);
+          dispatch(setUser(accessToken));
         }
       } catch (error) {
         console.log('🚀 ~ _retrieveData= ~ error:', error);
