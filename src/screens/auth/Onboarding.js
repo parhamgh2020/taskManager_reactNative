@@ -14,10 +14,10 @@ const Onboarding = ({navigation}) => {
         <View style={styles.imageFooter} />
       </View>
       <View style={styles.footerContainer}>
-        <Text style={styles.title}>Best task management app</Text>
+        <Text style={styles.title}>Top Task Management App</Text>
         <Text style={styles.subtitle}>
-          Get organized by sorting out all your tasks and boost your
-          productivity.
+          Enhance your productivity by organizing and sorting through all your
+          tasks.
         </Text>
         <Button onPress={() => navigation.navigate('SignIn')}>Log in</Button>
         <Button onPress={() => navigation.navigate('SignUp')} type={'blue'}>
