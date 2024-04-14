@@ -1,6 +1,6 @@
 import axios from "axios";
 
-url = "https://74d2-145-224-74-246.ngrok-free.app";
+url = "https://1a4b-145-224-74-246.ngrok-free.app";
 
 const httpRequest = axios.create({
   baseURL: url,
