@@ -3,31 +3,35 @@ import axios from 'axios';
 
 URL = 'https://2360-3-8-154-105.ngrok-free.app';
 
-const requestHttp = async (endpoint, method, data) => {
-  const token = AsyncStorage.getItem('token');
+const requestHttp = async (endpoint, method, params = {}, data = {}) => {
   try {
+    const token = await AsyncStorage.getItem('token');
+
     const instance = axios.create({
       baseURL: URL,
-      method: method, // specify the method (GET, POST, PUT, DELETE, etc.)
+      method: method,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // add your authentication token
+        Authorization: `Bearer ${token}`,
       },
-      params: {
-        // specify your query parameters here
-        key1: 'value1',
-        key2: 'value2',
-      },
+    });
+
+    const response = await instance.request({
+      url: endpoint,
+      params: params,
       data: data,
     });
-    const response = await instance.request({
-      url: endpoint, // specify the endpoint
-    });
+
     return response;
   } catch (error) {
-    console.error('Error httpRequest data: ', error);
+    if (error.response && error.response.status === 400) {
+      // Handle status code 400
+      console.error('Bad Request: ', error.response.data);
+      return error.response.data; // or throw an error
+    } else {
+      console.error('Error httpRequest data: ', error);
+      throw error; // throw other errors to be handled elsewhere
+    }
   }
-  return null;
 };
-
 export default requestHttp;

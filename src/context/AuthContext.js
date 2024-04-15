@@ -33,7 +33,7 @@ const signIn = dispatch => {
       password: props.password,
     };
     try {
-      const res = await httpRequest.post('api/token/', data);
+      const res = await httpRequest('/api/token/', 'post', {}, data);
       dispatch({type: 'sign_in', payload: res.data.access});
       await AsyncStorage.setItem('token', res.data.access);
     } catch (err) {
