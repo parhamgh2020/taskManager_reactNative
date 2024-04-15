@@ -10,13 +10,13 @@ import Checkbox from '../../components/Checkbox';
 import Categories from '../../components/Categories';
 import Title from '../../components/Title';
 import {categories} from '../../constants/categories';
-import tasks from '../../constants/tasks';
+// import tasks from '../../constants/tasks';
 import { setToUpdate } from '../../redux/tasks';
 
 const Tasks = () => {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [category, setCategory] = useState('all');
-  // const tasks = useSelector(state => state.tasks.data);
+  const tasks = useSelector(state => state.tasks.data);
 
   const dispatch = useDispatch();
 
