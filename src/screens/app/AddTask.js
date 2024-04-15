@@ -52,8 +52,8 @@ const AddTask = () => {
         deadline: deadlineDate,
         user: 1,
       };
-      const res = await httpRequest.post('task/create', data);
-      console.log("🚀 ~ onPressButton ~ res:", res)
+      const res = await httpRequest('/task/create', 'post', data);
+      console.log('🚀 ~ onPressButton ~ res:', res);
     } catch (err) {
       console.log('🚀 ~ onPressButton ~ err:', err);
       setIsLoading(false);
