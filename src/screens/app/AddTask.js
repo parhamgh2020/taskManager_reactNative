@@ -34,9 +34,9 @@ const AddTask = () => {
     navigation.goBack();
   };
 
-  const onPressButton = async () => {
-    if (!taskValue) {
-      Alert.alert('Please enter the task title !!');
+  const onPressAddTaskButton = async () => {
+    if (!taskValue || !category) {
+      Alert.alert('Title and type of task required. !!');
       return;
     }
     const today = moment(new Date()).format('YYYY-MM-DD');
@@ -50,12 +50,10 @@ const AddTask = () => {
         category: category,
         taskTitle: taskValue,
         deadline: deadlineDate,
-        user: 1,
       };
-      const res = await httpRequest('/task/create', 'post', data);
-      console.log('🚀 ~ onPressButton ~ res:', res);
+      console.log("🚀 ~ onPressAddTaskButton ~ data:", data)
+      const res = await httpRequest('/task/create', 'post', {}, data);
     } catch (err) {
-      console.log('🚀 ~ onPressButton ~ err:', err);
       setIsLoading(false);
       Alert.alert('Something went wrong with saving task');
     }
@@ -70,7 +68,7 @@ const AddTask = () => {
       </Pressable>
       <ScrollView>
         <Title type={'thin'}>Add new task</Title>
-        <Text style={styles.label}>describe the task</Text>
+        <Text style={styles.label}>Title</Text>
         <Input
           outlined
           value={taskValue}
@@ -88,7 +86,7 @@ const AddTask = () => {
         {isLoading ? (
           <ActivityIndicator />
         ) : (
-          <Button style={styles.button} onPress={onPressButton}>
+          <Button style={styles.button} onPress={onPressAddTaskButton}>
             Add the task
           </Button>
         )}

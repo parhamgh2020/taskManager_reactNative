@@ -1,4 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
+import requestHttp from '../http/httpRequest';
 
 export const tasksSlice = createSlice({
   name: 'tasks',
@@ -8,14 +9,22 @@ export const tasksSlice = createSlice({
   },
   reducers: {
     setTasks: (state, action) => {
+      console.log('updating...')
       state.data = action.payload;
     },
-    setToUpdate: state => {
-      state.toUpdate = Math.random();
+    updateTasks: async state => {
+      try {
+        const res = await requestHttp('/task/list', 'get', {}, {})
+        console.log("🚀 ~ res:", res)
+        console.log("🚀 ~ res:", res.data)
+        state.data = res.data;
+      } catch (err) {
+          console.log("🚀 ~ err:", err)
+      }
     },
   },
 });
 
-export const {setTasks, setToUpdate} = tasksSlice.actions;
+export const {setTasks, updateTasks} = tasksSlice.actions;
 
 export default tasksSlice.reducer;

@@ -11,7 +11,7 @@ import Categories from '../../components/Categories';
 import Title from '../../components/Title';
 import {categories} from '../../constants/categories';
 // import tasks from '../../constants/tasks';
-import { setToUpdate } from '../../redux/tasks';
+import { setToUpdate, updateTasks } from '../../redux/tasks';
 
 const Tasks = () => {
   const [filteredTasks, setFilteredTasks] = useState([]);
@@ -19,6 +19,11 @@ const Tasks = () => {
   const tasks = useSelector(state => state.tasks.data);
 
   const dispatch = useDispatch();
+  
+  useEffect(() => {
+    console.log('useEffect...')
+    // dispatch(updateTasks())
+  })
 
   useEffect(() => {
     if (category && category !== 'all') {
