@@ -27,7 +27,6 @@ const signInLocally = dispatch => {
 
 const signIn = dispatch => {
   return async props => {
-    console.log('🚀 ~ signIn ~ props:', props);
     const data = {
       username: props.username,
       password: props.password,

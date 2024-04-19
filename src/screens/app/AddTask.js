@@ -24,8 +24,8 @@ import Button from '../../components/Button';
 import httpRequest from '../../http/httpRequest';
 
 const AddTask = () => {
-  const [taskValue, setTaskValue] = useState();
-  const [category, setCategory] = useState();
+  const [taskValue, setTaskValue] = useState('');
+  const [category, setCategory] = useState(null);
   const [deadline, setDeadline] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,21 +39,33 @@ const AddTask = () => {
       Alert.alert('Title and type of task required. !!');
       return;
     }
-    const today = moment(new Date()).format('YYYY-MM-DD');
-    const deadlineDate = moment(deadline).format('YYYY-MM-DD');
-    if (moment(deadlineDate).isBefore(today)) {
-      Alert.alert('Please enter future date !!');
+
+    const today = new Date();
+    const todayFormatted = `${today.getFullYear()}-${
+      today.getMonth() + 1
+    }-${today.getDate()}`;
+    const deadlineFormatted = `${deadline.getFullYear()}-${
+      deadline.getMonth() + 1
+    }-${deadline.getDate()}`;
+
+    if (deadline < today) {
+      Alert.alert('Please enter a future date !!');
+      return;
     }
+
+    setIsLoading(true);
+    const data = {
+      category,
+      taskTitle: taskValue,
+      deadline: deadlineFormatted,
+    };
+
     try {
-      setIsLoading(true);
-      const data = {
-        category: category,
-        taskTitle: taskValue,
-        deadline: deadlineDate,
-      };
-      console.log("🚀 ~ onPressAddTaskButton ~ data:", data)
       const res = await httpRequest('/task/create', 'post', {}, data);
+      navigation.navigate('Tasks');
     } catch (err) {
+      Alert.alert('Something went wrong with saving the task');
+    } finally {
       setIsLoading(false);
       Alert.alert('Something went wrong with saving task');
     }
@@ -75,7 +87,7 @@ const AddTask = () => {
           onChangeText={setTaskValue}
           placeholder={'type here...'}
         />
-        <Text style={styles.label}>type</Text>
+        <Text style={styles.label}>Type</Text>
         <Categories
           categories={categories}
           selectedCategory={category}
@@ -98,7 +110,10 @@ const AddTask = () => {
 export default AddTask;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
   backIcon: {
     marginLeft: 20,
     marginTop: 25,

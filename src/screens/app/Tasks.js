@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {FlatList, View, Text} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 //
 import Header from '../../components/Header';
 import PlusIcon from '../../components/PlusIcon';
@@ -11,19 +12,21 @@ import Categories from '../../components/Categories';
 import Title from '../../components/Title';
 import {categories} from '../../constants/categories';
 // import tasks from '../../constants/tasks';
-import { setToUpdate, updateTasks } from '../../redux/tasks';
+import {setToUpdate} from '../../redux/tasks';
+import {updateTasksAsync} from '../../redux/tasks';
 
 const Tasks = () => {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [category, setCategory] = useState('all');
   const tasks = useSelector(state => state.tasks.data);
-
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
-    console.log('useEffect...')
-    // dispatch(updateTasks())
-  })
+    if (isFocused) {
+      dispatch(updateTasksAsync());
+    }
+  }, [isFocused]);
 
   useEffect(() => {
     if (category && category !== 'all') {

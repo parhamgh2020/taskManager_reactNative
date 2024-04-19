@@ -1,12 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-URL = 'https://122d-3-8-154-105.ngrok-free.app';
+URL = 'https://77e7-3-8-154-105.ngrok-free.app';
 
 const requestHttp = async (endpoint, method, params = {}, data = {}) => {
   try {
     const token = await AsyncStorage.getItem('token');
-    console.log("🚀 ~ requestHttp ~ token:", token)
     const instance = axios.create({
       baseURL: URL,
       method: method,

@@ -33,7 +33,6 @@ const Routes = () => {
   } = useContext(AuthContext);
 
   useEffect(() => {
-    console.log('🚀 ~ useEffect ~ useEffect');
     const _retrieveData = async () => {
       try {
         const accessToken = await AsyncStorage.getItem('token');
