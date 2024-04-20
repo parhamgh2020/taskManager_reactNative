@@ -13,7 +13,7 @@ import Title from '../../components/Title';
 import {categories} from '../../constants/categories';
 // import tasks from '../../constants/tasks';
 import {setToUpdate} from '../../redux/tasks';
-import {setTasksAsync} from '../../redux/tasks';
+import {fetchTasksAsync} from '../../redux/tasks';
 
 const Tasks = () => {
   const [filteredTasks, setFilteredTasks] = useState([]);
@@ -24,7 +24,7 @@ const Tasks = () => {
 
   useEffect(() => {
     if (isFocused) {
-      dispatch(setTasksAsync());
+      dispatch(fetchTasksAsync());
     }
   }, [isFocused]);
 
