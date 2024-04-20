@@ -46,7 +46,7 @@ const Tasks = () => {
       <View style={styles.row}>
         <Checkbox checked={item.checked} onPress={() => onTaskUpdate(item)} />
         <Text style={[styles.taskText, item?.checked ? styles.checked : {}]}>
-          {item.title}
+          {item.taskTitle}
         </Text>
       </View>
     );
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
   taskText: {
     color: colors.black,
     marginLeft: 8,
+    fontSize: 16
   },
   checked: {
     textDecorationLine: 'line-through',
