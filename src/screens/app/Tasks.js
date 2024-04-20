@@ -13,7 +13,7 @@ import Title from '../../components/Title';
 import {categories} from '../../constants/categories';
 // import tasks from '../../constants/tasks';
 import {setToUpdate} from '../../redux/tasks';
-import {fetchTasksAsync} from '../../redux/tasks';
+import {fetchTasksAsync,updateTaskAsync} from '../../redux/tasks';
 
 const Tasks = () => {
   const [filteredTasks, setFilteredTasks] = useState([]);
@@ -38,7 +38,7 @@ const Tasks = () => {
   }, [category, tasks]);
 
   const onTaskUpdate = item => {
-    // dispatch(setToUpdate());
+    dispatch(updateTaskAsync(item));
   };
 
   const renderTask = ({item}) => {
