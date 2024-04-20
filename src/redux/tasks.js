@@ -19,10 +19,20 @@ export const {setTasks} = tasksSlice.actions;
 export default tasksSlice.reducer;
 
 // Thunk action creator for updating tasks asynchronously
-export const updateTasksAsync = () => async dispatch => {
+export const setTasksAsync = () => async dispatch => {
   try {
     console.log('updating tasks...');
     const res = await requestHttp('/task/list', 'get', {}, {});
+    dispatch(setTasks(res.data)); // Dispatch the action to update the state
+  } catch (error) {
+    console.log('🚀 ~ tasksSlice error:', error);
+  }
+};
+
+export const updateTasksAsync = () => async dispatch => {
+  try {
+    console.log('updating tasks...');
+    const res = await requestHttp('/task/update', 'patch', {}, {});
     dispatch(setTasks(res.data)); // Dispatch the action to update the state
   } catch (error) {
     console.log('🚀 ~ tasksSlice error:', error);
