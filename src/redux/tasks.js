@@ -32,7 +32,7 @@ export const fetchTasksAsync = () => async dispatch => {
 export const updateTaskAsync = (item) => async dispatch => {
   try {
     console.log('updating task...');
-    const res = await requestHttp('/task/update', 'patch', {}, item);
+    const res = await requestHttp(`/task/update/${item.id}`, 'patch', {}, item);
   } catch (error) {
     console.log('🚀 ~ tasksSlice error:', error);
   }
