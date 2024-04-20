@@ -23,7 +23,6 @@ export const updateTasksAsync = () => async dispatch => {
   try {
     console.log('updating tasks...');
     const res = await requestHttp('/task/list', 'get', {}, {});
-    console.log('🚀 ~ tasksSlice res:', res);
     dispatch(setTasks(res.data)); // Dispatch the action to update the state
   } catch (error) {
     console.log('🚀 ~ tasksSlice error:', error);
