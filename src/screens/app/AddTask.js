@@ -48,7 +48,7 @@ const AddTask = () => {
       deadline.getMonth() + 1
     }-${deadline.getDate()}`;
 
-    if (deadline < today) {
+    if (deadline > today) {
       Alert.alert('Please enter a future date !!');
       return;
     }

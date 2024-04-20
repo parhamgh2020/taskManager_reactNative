@@ -29,8 +29,8 @@ const Home = ({navigation}) => {
       );
       const today = moment(new Date()).format('YYYY-MM-DD');
       const dueDeadline = tasks?.filter(task => {
-        const deadline = task?.deadline?.seconds * 1000;
-        const deadlineFormatted = moment(deadline).format('YYYY-MM-DD');
+        const deadline = task?.deadline
+        const deadlineFormatted = moment(deadline, 'YYYY-MM-DD')
         return moment(deadlineFormatted).isBefore(today);
       });
       const quickWin = tasks?.filter(task => task?.category === 'quick_task');
