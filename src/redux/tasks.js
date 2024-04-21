@@ -9,13 +9,21 @@ export const tasksSlice = createSlice({
   },
   reducers: {
     setTasks: (state, action) => {
-      console.log('fetching...');
       state.data = action.payload;
-    }
+    },
+    updateTask: (state, action) => {
+      const updatedTask = action.payload;
+      state.data = state.data.map(task => {
+        if (task.id === updatedTask.id) {
+          return {...task, ...updatedTask};
+        }
+        return task;
+      });
+    },
   },
 });
 
-export const {setTasks} = tasksSlice.actions;
+export const {setTasks, updateTask} = tasksSlice.actions;
 export default tasksSlice.reducer;
 
 // Thunk action creator for updating tasks asynchronously
@@ -29,10 +37,11 @@ export const fetchTasksAsync = () => async dispatch => {
   }
 };
 
-export const updateTaskAsync = (item) => async dispatch => {
+export const updateTaskAsync = item => async dispatch => {
   try {
     console.log('updating task...');
     const res = await requestHttp(`/task/update/${item.id}`, 'patch', {}, item);
+    dispatch(updateTask(item));
   } catch (error) {
     console.log('🚀 ~ tasksSlice error:', error);
   }

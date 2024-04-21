@@ -13,7 +13,7 @@ import Title from '../../components/Title';
 import {categories} from '../../constants/categories';
 // import tasks from '../../constants/tasks';
 import {setToUpdate} from '../../redux/tasks';
-import {fetchTasksAsync,updateTaskAsync} from '../../redux/tasks';
+import {fetchTasksAsync, updateTaskAsync} from '../../redux/tasks';
 
 const Tasks = () => {
   const [filteredTasks, setFilteredTasks] = useState([]);
@@ -37,8 +37,9 @@ const Tasks = () => {
     }
   }, [category, tasks]);
 
-  const onTaskUpdate = item => {
-    dispatch(updateTaskAsync(item));
+  const onTaskUpdate = (item) => {
+    const updatedItem = { ...item, checked: !item.checked };
+    dispatch(updateTaskAsync(updatedItem));
   };
 
   const renderTask = ({item}) => {
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
   taskText: {
     color: colors.black,
     marginLeft: 8,
-    fontSize: 16
+    fontSize: 16,
   },
   checked: {
     textDecorationLine: 'line-through',
