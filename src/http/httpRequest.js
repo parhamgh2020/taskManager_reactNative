@@ -1,36 +1,58 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { baseURL } from '../constants/urls';
+import { Context as AuthContext } from '../context/AuthContext';
 
-URL = 'https://8b0c-3-8-154-105.ngrok-free.app';
-
-const requestHttp = async (endpoint, method, params = {}, data = {}) => {
-  try {
-    const token = await AsyncStorage.getItem('token');
-    const instance = axios.create({
-      baseURL: URL,
-      method: method,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const response = await instance.request({
-      url: endpoint,
-      params: params,
-      data: data,
-    });
-
-    return response;
-  } catch (error) {
-    if (error.response && error.response.status === 400) {
-      // Handle status code 400
-      console.error('Bad Request: ', error.response.data);
-      return error.response.data; // or throw an error
-    } else {
+const requestHttp = (endpoint, method, params = {}, data = {}) => {
+  return AsyncStorage.getItem('token')
+    .then(token => {
+      const instance = axios.create({
+        baseURL: baseURL,
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return instance.request({
+        url: endpoint,
+        params: params,
+        data: data,
+      });
+    })
+    .catch(error => {
+      if (error.response) {
+        const { status } = error.response;
+        if (status === 400) {
+          console.error('Bad Request: ', error.response.data);
+          return Promise.reject(error.response.data);
+        } else if (status === 401) {
+          console.error('Unauthorized: ', error.response.data);
+          // Perform token refresh here
+          return AsyncStorage.getItem('refresh')
+            .then(refreshToken => {
+              return axios.post(`${baseURL}${refresh-token}`, {
+                refreshToken: refreshToken,
+              });
+            })
+            .then(refreshResponse => {
+              const token = refreshResponse.data.token;
+              return AsyncStorage.setItem('token', token)
+                .then(() => {
+                  // Retry the failed request with the new token
+                  return requestHttp(endpoint, method, params, data);
+                });
+            })
+            .catch(refreshError => {
+              console.error('Token refresh failed: ', refreshError);
+              const {signOut} = useContext(AuthContext);
+              signOut()
+            });
+        }
+      }
       console.error('Error httpRequest data: ', error);
-      throw error; // throw other errors to be handled elsewhere
-    }
-  }
+      return Promise.reject(error);
+    });
 };
+
 export default requestHttp;

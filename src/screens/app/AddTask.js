@@ -14,6 +14,7 @@ import {useNavigation} from '@react-navigation/native';
 //
 import {categories} from '../../constants/categories';
 import colors from '../../constants/colors';
+import {createTaskUrl} from '../../constants/urls';
 //
 import Categories from '../../components/Categories';
 import Title from '../../components/Title';
@@ -61,13 +62,10 @@ const AddTask = () => {
     };
 
     try {
-      const res = await httpRequest('/task/create', 'post', {}, data);
+      const res = await httpRequest(createTaskUrl, 'post', {}, data);
       navigation.navigate('Tasks');
     } catch (err) {
       Alert.alert('Something went wrong with saving the task');
-    } finally {
-      setIsLoading(false);
-      Alert.alert('Something went wrong with saving task');
     }
     navigation.navigate('Tasks');
     setIsLoading(false);
@@ -107,8 +105,6 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -129,3 +125,5 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
 });
+
+export default AddTask;

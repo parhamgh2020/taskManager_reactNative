@@ -3,6 +3,8 @@ import httpRequest from '../http/httpRequest';
 import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createUserUrl } from '../constants/urls';
+import { tokenUrl } from '../constants/urls';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -32,9 +34,10 @@ const signIn = dispatch => {
       password: props.password,
     };
     try {
-      const res = await httpRequest('/api/token/', 'post', {}, data);
+      const res = await httpRequest(tokenUrl, 'post', {}, data);
       dispatch({type: 'sign_in', payload: res.data.access});
       await AsyncStorage.setItem('token', res.data.access);
+      await AsyncStorage.setItem('refreshToken', res.data.refresh)
     } catch (err) {
       console.log('🚀 ~ signIn ~ err:', err);
       Alert.alert('wrong username or password');
@@ -49,7 +52,7 @@ const signUp = dispatch => {
       password: props.password,
     };
     try {
-      const res = await httpRequest.post('client/user/create', data);
+      const res = await httpRequest.post(createUserUrl, data);
     } catch {
       Alert.alert('something went wrong!!');
     }

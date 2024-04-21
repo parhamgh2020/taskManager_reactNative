@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import requestHttp from '../http/httpRequest';
+import {fetchTasksUrl, editTaskUrl} from '../constants/urls';
 
 export const tasksSlice = createSlice({
   name: 'tasks',
@@ -30,7 +31,7 @@ export default tasksSlice.reducer;
 export const fetchTasksAsync = () => async dispatch => {
   try {
     console.log('fetching tasks...');
-    const res = await requestHttp('/task/list', 'get', {}, {});
+    const res = await requestHttp(fetchTasksUrl, 'get', {}, {});
     dispatch(setTasks(res.data)); // Dispatch the action to update the state
   } catch (error) {
     console.log('🚀 ~ tasksSlice error:', error);
@@ -40,8 +41,13 @@ export const fetchTasksAsync = () => async dispatch => {
 export const updateTaskAsync = item => async dispatch => {
   try {
     console.log('updating task...');
-    const res = await requestHttp(`/task/update/${item.id}`, 'patch', {}, item);
     dispatch(updateTask(item));
+    const res = await requestHttp(
+      `${editTaskUrl}${item.id}`,
+      'patch',
+      {},
+      item,
+    );
   } catch (error) {
     console.log('🚀 ~ tasksSlice error:', error);
   }
