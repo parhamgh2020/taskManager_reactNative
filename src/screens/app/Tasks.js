@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+console.log('🚀 ~ useSelector:', useSelector);
 import {FlatList, View, Text} from 'react-native';
 import {useIsFocused} from '@react-navigation/native';
 //
@@ -37,8 +38,8 @@ const Tasks = () => {
     }
   }, [category, tasks]);
 
-  const onTaskUpdate = (item) => {
-    const updatedItem = { ...item, checked: !item.checked };
+  const onTaskUpdate = item => {
+    const updatedItem = {...item, checked: !item.checked};
     dispatch(updateTaskAsync(updatedItem));
   };
 

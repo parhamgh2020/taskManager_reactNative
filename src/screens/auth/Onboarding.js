@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default React.memo(Onboarding);
+export default Onboarding;

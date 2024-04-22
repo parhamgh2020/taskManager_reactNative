@@ -20,7 +20,7 @@ import {
 import {Context as AuthContext} from '../../context/AuthContext';
 import {useContext} from 'react';
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
   //
   const {signUp} = useContext(AuthContext);
   //
@@ -60,6 +60,7 @@ const SignUp = () => {
       return;
     }
     signUp(values);
+    navigation.navigate('Onboarding');
   };
   //
   return (

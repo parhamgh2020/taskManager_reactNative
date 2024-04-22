@@ -14,6 +14,7 @@ import Title from '../../components/Title';
 import StatusCard from '../../components/StatusCard';
 import moment from 'moment';
 import colors from '../../constants/colors';
+import {fetchTasksAsync} from '../../redux/tasks';
 
 const Home = ({navigation}) => {
   const tasks = useSelector(state => state.tasks.data);
@@ -23,14 +24,18 @@ const Home = ({navigation}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchTasksAsync());
+  }, []);
+
+  useEffect(() => {
     if (tasks?.length) {
       const highPriority = tasks?.filter(
         task => task?.category === 'urgent' || task?.category === 'important',
       );
       const today = moment(new Date()).format('YYYY-MM-DD');
       const dueDeadline = tasks?.filter(task => {
-        const deadline = task?.deadline
-        const deadlineFormatted = moment(deadline, 'YYYY-MM-DD')
+        const deadline = task?.deadline;
+        const deadlineFormatted = moment(deadline, 'YYYY-MM-DD');
         return moment(deadlineFormatted).isBefore(today);
       });
       const quickWin = tasks?.filter(task => task?.category === 'quick_task');
@@ -63,7 +68,8 @@ const Home = ({navigation}) => {
           onPress={() => navigation.navigate('Tasks')}>
           <Text style={styles.title}>Review My Tasks</Text>
           <Text style={styles.subtitle}>
-            Explore all tasks and easily filter them based on the categories you've chosen during their creation
+            Explore all tasks and easily filter them based on the categories
+            you've chosen during their creation
           </Text>
         </TouchableOpacity>
       </ScrollView>

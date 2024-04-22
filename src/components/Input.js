@@ -6,6 +6,7 @@ import colors from '../constants/colors';
 const Input = ({outlined, ...props}) => {
   return (
     <TextInput
+      autoCapitalize='none'
       placeholderTextColor={colors.midGrey}
       style={[styles.input, outlined ? styles.outlined : {}]}
       {...props}
