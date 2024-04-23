@@ -1,4 +1,4 @@
-export const baseURL = 'https://61d5-188-212-241-126.ngrok-free.app'
+export const baseURL = 'https://sea-turtle-app-fwavi.ondigitalocean.app'
 
 export const tokenUrl = '/api/token/';
 export const refreshTokenUrl = '/api/token/refresh/';
